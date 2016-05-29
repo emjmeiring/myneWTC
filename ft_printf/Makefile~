@@ -14,7 +14,7 @@ all: $(NAME)
 
 $(NAME):
 	#make -C libft/ fclean && make -C libft/
-	gcc $(FLAG) -c -I ./ -I ./libft/includes/ $(SRC)
+	gcc $(FLAG) -c -I ./ -I ./libft/includes/ -c $(SRC) -o $(OBJ)
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 	

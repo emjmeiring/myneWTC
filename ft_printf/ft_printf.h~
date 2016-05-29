@@ -75,7 +75,7 @@ typedef	struct 			s_convertor
 }						t_convertor;
 
 int						ft_printf(const char *format, ...);
-int						specifier_lexer(const char *runner, va_list args);
+int						specifier_lexer(char *runner, va_list args);
 //static void				conversion_lexer(t_format *format);
 //static void				input_lexer(t_format *format, va_list args);
 //static void				parse(t_format *format, va_list args);
