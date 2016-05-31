@@ -6,15 +6,15 @@ LINK = -I
 LIBINCLUDES = ./libft/includes
 OPTION = -c -I $(HEADER)
 
-SRC = $(PATH_SRC)specifier_lexer.c $(PATH_SRC)ft_printf.c
+SRC = $(PATH_SRC)Even_Realer.c $(PATH_SRC)master_chef.c #$(PATH_SRC)specifier_lexer.c 
 
-OBJ = specifier_lexer.o ft_printf.o
+OBJ = Even_Realer.o master_chef.o #specifier_lexer.o 
 
 all: $(NAME)
 
 $(NAME):
 	#make -C libft/ fclean && make -C libft/
-	gcc $(FLAG) -c -I ./ -I ./libft/includes/ -c $(SRC) -o $(OBJ)
+	gcc $(FLAG) -I ./ -I ./libft/includes/ $(SRC)
 	ar rc $(NAME) $(OBJ)
 	ranlib $(NAME)
 	

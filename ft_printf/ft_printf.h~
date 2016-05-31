@@ -70,12 +70,15 @@ typedef	struct 			s_convertor
 	t_flags				flags;
 	t_pc				precision;
 	t_length			length;
-	t_spec				format_spec;
+	t_bool				format_spec;
 //	t_specifier			specifier;
 }						t_convertor;
 
+void					master_chef(t_convertor conv, va_list args);
 int						ft_printf(const char *format, ...);
-int						specifier_lexer(char *runner, va_list args);
+int						get_flag(t_flags comv_flag, char flag);
+
+//int						specifier_lexer(const char *runner, va_list args);
 //static void				conversion_lexer(t_format *format);
 //static void				input_lexer(t_format *format, va_list args);
 //static void				parse(t_format *format, va_list args);
