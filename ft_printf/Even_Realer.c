@@ -58,16 +58,18 @@ int		ft_printf(char const *stream, ...)
 				{
 					if (arg_type(*(stream + i)))
 					{
-						
-						
 						went_left = TRUE;
 						if (flag_matched)
 						{
 						//printf("\nno argtype\n");
 							if (min_fw_matched)
 							{
+								printf("all done");
+								/*
 								if (period_matched)
 								{
+									printf("all done");
+									
 									if (max_fw_matched)
 									{
 										//printf("\n%d\n", i);
@@ -101,20 +103,11 @@ int		ft_printf(char const *stream, ...)
 										//i = ip;
 									}
 									period_matched = TRUE;								
-								}
+								}*/
 							}
 							else
 							{
-								ip = i;
-								while (isdigit(*(stream + i)))
-								{
-									i++;
-								}
-								if (ip < i)
-								{
-									//printf("get_width((stream + ip), (i - ip))\n");
-									//i = ip;
-								}
+								i += get_width(&conv.precision, (stream + i), 0);
 								min_fw_matched = TRUE;
 							}
 						}
@@ -126,12 +119,11 @@ int		ft_printf(char const *stream, ...)
 							while (get_flag(&conv.flags, *(stream + i)))
 							{
 								i++;
-								
 							}
 							//printf("woow");
 							flag_matched = TRUE;
 						}
-						//printf("**%c**", conv.flags.left_justified);						
+						//printf("**%c**", conv.flags.left_justified);
 					}
 					else
 					{
