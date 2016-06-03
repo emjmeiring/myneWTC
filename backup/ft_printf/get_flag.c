@@ -36,12 +36,13 @@ int		get_width(t_pc *precision, const char *stream, int prec)
 	int		stoi;
 
 	i = 0;
+	stoi = 0;
 	while (isdigit(*(stream + i)))
 	{
 		stoi = atoi(stream);
 		i++;
 	}
-	if (!prec)
+	if (!prec && stoi)
 		precision->width = stoi;
 	else precision->precision = stoi;
 	if (*(stream + i) == '.')

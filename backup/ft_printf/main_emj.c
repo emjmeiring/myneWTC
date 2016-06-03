@@ -4,26 +4,27 @@
 #include <sys/stat.h>
 #include <sys/types.h> 
 #include <unistd.h>  
+#include <ctype.h>
 
 int main () 
 {
-	printf("\n-+-PRINTF   %%s TEXT%s==\n", "123456789");
-	int i = ft_printf("FT_PRINTF   %%s TEXT%s==\n", "123456789");
+	printf("\n-+-PRINTF   %%.11d TEXT%.11d==\n", 123456789);
+	int i = ft_printf("FT_PRINTF   %%.11d TEXT%.11d==\n", 123456789);
+
+	printf("\n-+-PRINTF   %%-.90d TEXT%.90d==\n", 505005);
+	int u = ft_printf("FT_PRINTF   %%-.90d TEXT%.90d==\n", 505005);
 	
-	printf("\n-+-PRINTF   %%-2.9s TEXT%-5.2s==\n", "505005");
-	int u = ft_printf("FT_PRINTF   %%-2.9s TEXT%-5.2s==\n", "505005");
+	printf("\n-+-PRINTF   %%15.20d TEXT%15.20d==\n", 505005);
+	int h = ft_printf("FT_PRINTF   %%15.20d TEXT%15.20d==\n", 505005);
 	
-	printf("\n-+-PRINTF   %%15.9s TEXT%15.9s==\n", "505005");
-	int h = ft_printf("FT_PRINTF   %%15.9s TEXT%15.9s==\n", "505005");
+	printf("\n-+-PRINTF   %%-50.7d TEXT%-50.7d==\n", 505005);
+	int f = ft_printf("FT_PRINTF   %%-50.7d TEXT%-50.7d==\n", 505005);
 	
-	printf("\n-+-PRINTF   %%10.6s TEXT%50.6s==\n", "505005");
-	int f = ft_printf("FT_PRINTF   %%10.6s TEXT%50.6s==\n", "505005");
+	printf("\n-+-PRINTF   %%-42.10d TEXT%-.10d==\n", 505005);
+	int k = ft_printf("FT_PRINTF   %%-42.10d TEXT%-.10d==\n", 505005);
 	
-	printf("\n-+-PRINTF   %%42s TEXT%-42.2s==\n", "505005");
-	int k = ft_printf("FT_PRINTF   %%42s TEXT%-42.2s==\n", "505005");
-	
-	printf("\n-+-PRINTF   %%-10.9s TEXT%-10.2s==\n", "505005");
-	int q = ft_printf("FT_PRINTF   %%-10.9s TEXT%-10.2s==\n", "505005");
+	printf("\n-+-PRINTF   %%10.2d TEXT%10.2d==\n", 505005);
+	int q = ft_printf("FT_PRINTF   %%10.2d TEXT%10.2d==\n", 505005);
 	
 	
 	

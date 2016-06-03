@@ -1,118 +1,54 @@
 #include "ft_printf.h"
 #include "./libft/includes/libft.h"
 #include <stdio.h>
-/*char	*printable(t_convertor conv, char *str_arg)
+#include <ctype.h>
+
+void reverse(char s[])
 {
-	char	*format;
-	char	*padded;
-	int		arg_len;
-	int		k;
-	int 	j;
-//write(1, str_arg, 2);
-	arg_len = strlen(str_arg);
-	format = ft_strnew(conv.precision.width + (arg_len*2));
-	padded = ft_strnew(conv.precision.width*2);
-	 if (conv.flags.left_justified == '-')
+
+	int i, j;
+	char c;
+	for (i = 0, j = strlen(s)-1; i<j; i++, j--)
 	{
-	//write(1, &conv.flags.left_justified, 1);
-		if(conv.precision.width)
-		{
-			//char s = conv.precision.width + '0';
-		//write(1, &s, 1);
-			if (conv.precision.period)
-			{
-			//write(1, &conv.precision.period, 1);
-				if (conv.precision.precision < arg_len)
-					k = conv.precision.width - conv.precision.precision;
-				else k = conv.precision.width - arg_len;
-		//char s = k  + '0';
-		//write(1, &s, 1);
-				while (k-- > 0)
-					padded = strncat(padded, " ", 1);
-				if (conv.precision.precision < arg_len)
-				{					
-					write(1, str_arg, conv.precision.precision);
-						//format = strncat(str_arg, padded, 2);
-						write(1, padded, strlen(padded));
-						
-						return ("\0");
-				}else
-				{
-				
-					if (*padded == ' ')
-					{
-					//char s = k  + '0';
-						write(1, str_arg, arg_len);
-						//format = strncat(str_arg, padded, 2);
-						write(1, padded, strlen(padded));
-						
-						return ("\0");
-					}else return (str_arg);
-				}
-			}else 
-			{
-				k = conv.precision.width - arg_len;
-				while (k-- > 0)
-					strncat(padded, " ", 1);		
-				//format = strcat(str_arg, padded);
-				write(1, str_arg, arg_len);
-						//format = strncat(str_arg, padded, 2);
-						write(1, padded, strlen(padded));
-				  //ft_memdel((void **)(&str_arg));
-				return ("\0");
-			}
-		}else
-		{
-			if(conv.precision.period && conv.precision.precision < arg_len )
-			{
-				*(str_arg + conv.precision.precision) = '\0';
-				return (str_arg);
-				    //ft_memdel((void **)(&format));
-			}else return str_arg;
-		}
-	}else if(conv.precision.width)
-	{
-		if (conv.precision.period)
-		{
-			if (conv.precision.precision < arg_len)
-				k = conv.precision.width - conv.precision.precision;
-			else k = conv.precision.width - arg_len;
-			while (k-- > 0)
-				padded = strncat(padded, " ", 1);		
-			format = strncat(padded, str_arg, conv.precision.precision);
-			  //ft_memdel((void **)(&str_arg));
-			return (format);
-		}else
-		{
-			j = conv.precision.width - arg_len; 
-			while (j-- > 0)
-				padded = strncat(padded, " ", 1);		
-			format = strcat(padded, str_arg);
-			  //ft_memdel((void **)(&str_arg));
-			return (format);
-		}
-	}else if (conv.precision.period && conv.precision.precision < arg_len)
-	{
-		*(str_arg + conv.precision.precision) = '\0';
-		    //ft_memdel((void **)(&format));
-		return (str_arg);
-	}else
-	{
-		    //ft_memdel((void **)(&format));
-		return (str_arg);
+		c = s[i];
+		s[i] = s[j];
+		s[j] = c;
 	}
 }
-*/
+
+void itoa(int n, char *s)
+{
+	int i, sign;
+
+	if ((sign = n) < 0)  /* record sign */
+		n = -n;
+	i = 0;
+	//write(1, s, 5);	
+	do {       /* generate digits in reverse order */
+         s[i++] = n % 10 + '0';   /* get next digit */
+	} while ((n /= 10) > 0);     /* delete it */
+	if (sign < 0)
+		s[i++] = '-';
+	s[i] = '\0';
+	reverse(s);
+ }
+
 void	master_chef(t_convertor conv, va_list args)
 {
 	char	*str;
+	char	*str_arg;
 	int		len;
 
 	if (conv.format_spec == 's')
 		str = print_able_string(conv, va_arg(args, char *));
-	else if (*stream == 'd' || *stream == 'i')
-		str = print_able_string(conv, itoa(va_arg(args, char *)));/*
-	else if (*stream == 'S');
+	else if (conv.format_spec == 'd' || conv.format_spec == 'i')
+	{
+		str_arg = ft_strnew(20);
+		itoa(va_arg(args, int),str_arg);
+		//write(1, "aaasa", 5);
+		str = print_able_digit(conv, str_arg);
+	}//*
+	/*else if (*stream == 'S');
 	else if (*stream == 'p');
 	
 	else if (*stream == 'o');

@@ -74,6 +74,7 @@ typedef	struct 			s_convertor
 //	t_specifier			specifier;
 }						t_convertor;
 
+char					*print_able_digit(t_convertor conv, char *str_arg);
 char					*print_able_string(t_convertor conv, char *str_arg);
 void					master_chef(t_convertor conv, va_list args);
 int						ft_printf(const char *format, ...);
