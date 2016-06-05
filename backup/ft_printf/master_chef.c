@@ -1,5 +1,5 @@
 #include "ft_printf.h"
-#include "./libft/includes/libft.h"
+#include "libft.h"
 #include <stdio.h>
 #include <ctype.h>
 
@@ -60,12 +60,12 @@ void itoa(int n, char *s)
 {
 	int i, sign;
 
-	if ((sign = n) < 0)  /* record sign */
+	if ((sign = n) < 0)
 		n = -n;
 	i = 0;
-	do {       /* generate digits in reverse order */
-         s[i++] = n % 10 + '0';   /* get next digit */
-	} while ((n /= 10) > 0);     /* delete it */
+	do {
+         s[i++] = n % 10 + '0';
+	} while ((n /= 10) > 0);
 	if (sign < 0)
 		s[i++] = '-';
 	s[i] = '\0';
@@ -82,14 +82,19 @@ int		master_chef(t_convertor conv, va_list args)
 	num_arg = 0;
 	str_arg = ft_strnew(20);
 	if (conv.format_spec == 's')
-		str = print_able_string(conv, va_arg(args, char *), &len);
-	else if (conv.format_spec == 'd' || conv.format_spec == 'i')
+	{
+		if (char *l = va_arg(args, char *))
+			*str = print_able_string(conv, l, &len);
+		else return (0);
+	}else if (conv.format_spec == 'd' || conv.format_spec == 'i')
 	{
 		itoa(va_arg(args, int),str_arg);
 		str = print_able_digit(conv, str_arg, &len);
 	}else if (conv.format_spec == 'c')
 	{
-		*str_arg = (char)va_arg(args, int);
+		if (int l = va_arg(args, int))
+			*str_arg = (char)l;
+		else return (0);
 		*(str_arg + 1) = '\0';
 		str = print_able_string(conv, str_arg, &len);
 	}else if (conv.format_spec == 'o')
@@ -112,10 +117,7 @@ int		master_chef(t_convertor conv, va_list args)
 		str_arg = ft_toupper(str_arg);
 		str = print_able_digit(conv, str_arg, &len);
 	}
-	/*else if (conv.format_spec == 'S')
-	else if (conv.format_spec == 'p')
-	else if (*stream == 'C')*/
-	if (*str != '\0');
+	if (*str != '\0')
 		len = strlen(str);
 	write(1, str, len);
 	free(str_arg);
