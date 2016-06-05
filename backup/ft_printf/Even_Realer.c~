@@ -43,7 +43,7 @@ int		ft_printf(char const *stream, ...)
 	va_start(args, stream);
 	//Move the initializations below to the initializing function.
 	i = 0;
-	count = 0;
+	count = 1;
 	flag_matched = FALSE;
 	min_fw_matched = FALSE;
 	//int has_printed = 0;

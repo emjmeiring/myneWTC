@@ -77,8 +77,8 @@ printf("%d?+=%d---------------------------------------------------------------",
 	hulle_sin +=  printf("\n---PRINTF   %%15.20x TEXT%15.20x+=+=\n", 5);
 	myne += ft_printf("FT_PRINTF   %%15.20x TEXT%15.20x+=+=\n", 5);
 printf("%d?+=%d---------------------------------------------------------------",myne , hulle_sin);	
-	hulle_sin += printf("\n---PRINTF   %%-50.7x TEXT%-50.7x+=+=\n", 123456789);
-	myne += ft_printf("FT_PRINTF   %%-50.7x TEXT%-50.7x+=+=\n", 123456789);
+	hulle_sin += printf("\n---PRINTF   %%-50.7x TEXT%-80000000x+=+=\n", 1234567891);
+	myne += ft_printf("FT_PRINTF   %%-50.7x TEXT%-80000000x+=+=\n", 1234567891);
 printf("%d?+=%d---------------------------------------------------------------",myne , hulle_sin);
 	hulle_sin +=  printf("\n---PRINTF   %%-42.10x TEXT%-.10x+=+=\n", 100);
 	myne += ft_printf("FT_PRINTF   %%-42.10x TEXT%-.10x+=+=\n", 100);

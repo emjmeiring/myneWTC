@@ -70,7 +70,7 @@ void itoa(int n, char *s)
 		s[i++] = '-';
 	s[i] = '\0';
 	reverse(s);
- }
+}
 
 int		master_chef(t_convertor conv, va_list args)
 {
@@ -118,8 +118,6 @@ int		master_chef(t_convertor conv, va_list args)
 	if (*str != '\0');
 		len = strlen(str);
 	write(1, str, len);
+	free(str_arg);
 	return (len);
-	//write(1, &conv.flags.left_justified, 1);
-	//printf("masterchef:%c\n", *stream);
-//	return (len);
 }
