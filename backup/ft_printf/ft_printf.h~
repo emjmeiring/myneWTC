@@ -74,11 +74,12 @@ typedef	struct 			s_convertor
 //	t_specifier			specifier;
 }						t_convertor;
 
-char					*print_able_string(t_convertor conv, char *str_arg);
-void					master_chef(t_convertor conv, va_list args);
-int						ft_printf(const char *format, ...);
-int						get_flag(t_flags *comv_flag, char flag);
-int						get_width(t_pc *precision,const char *stream, int prec);
+char			*print_able_digit(t_convertor conv, char *str_arg, int *count);
+char			*print_able_string(t_convertor conv, char *str_arg, int *count);
+int				master_chef(t_convertor conv, va_list args);
+int				ft_printf(const char *format, ...);
+int				get_flag(t_flags *comv_flag, char flag);
+int				get_width(t_pc *precision,const char *stream, int prec);
 
 //int						specifier_lexer(const char *runner, va_list args);
 //static void				conversion_lexer(t_format *format);

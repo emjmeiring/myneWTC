@@ -37,7 +37,7 @@ char	*print_able_digit(t_convertor conv, char *str_arg, int *count)
 					strncat(padded, " ", 1);		
 				write(1, str_arg, arg_len);
 				write(1, padded, strlen(padded));
-				*count += strlen(padded) + arg_len;
+				count += strlen(padded) + arg_len;
 				return ("\0");
 			}
 		}else

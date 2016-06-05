@@ -6,7 +6,7 @@
 /*   By: jomeirin <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/05/24 10:55:59 by jomeirin          #+#    #+#             */
-/*   Updated: 2016/05/24 13:47:33 by jomeirin         ###   ########.fr       */
+/*   Updated: 2016/05/31 14:00:11 by jomeirin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,10 @@ typedef	struct 			s_convertor
 //	t_specifier			specifier;
 }						t_convertor;
 
-void					master_chef(t_convertor conv, va_list args);
+char					*master_chef(t_convertor conv, va_list args);
 int						ft_printf(const char *format, ...);
-int						get_flag(t_flags comv_flag, char flag);
+int						get_flag(t_flags *comv_flag, char flag);
+int						get_width(t_pc *precision,const char *stream, int prec);
 
 //int						specifier_lexer(const char *runner, va_list args);
 //static void				conversion_lexer(t_format *format);
