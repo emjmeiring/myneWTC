@@ -1,9 +1,6 @@
 #include "ft_printf.h"
 #include <stdio.h>
 #include <ctype.h>
-
-
-
 int		get_flag(t_flags *conv_flag, char flag)
 {
 	//printf("aha");
@@ -33,38 +30,27 @@ int		get_flag(t_flags *conv_flag, char flag)
 	return (0);
 }
 
-int		get_width(t_pc *precision, const char *stream, int prec, char *str_arg)
+int		get_width(t_pc *precision, const char *stream, int prec)
 {
 	int		i;
 	int		stoi;
-	int		pad;
-	char	*padded;
 
 	i = 0;
-	//write(1, (stream + i), 7);
+	stoi = 0;
 	while (isdigit(*(stream + i)))
 	{
 		stoi = atoi(stream);
 		i++;
 	}
-	
+	if (!prec && stoi)
+		precision->width = stoi;
+	else precision->precision = stoi;
 	if (*(stream + i) == '.')
 	{
 		precision->period = *(stream + i);
 		i++;
 		i += get_width(precision, (stream + i), 1);
-	}
-	if (!prec)
-		padded = (char *)malloc(sizeof(char)*(stoi + strlen(str_arg)))
-		
-		pad = stoi - strlen(str_arg);
-		while (pad > 0)
-		{
-			
-		}
-	else precision->precision = stoi;
-	//write(1, (stream + i), 7);	
-	//printf("\n%d", i);
+	}	
 	return (i);
 }
 /*

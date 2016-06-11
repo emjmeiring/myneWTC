@@ -21,7 +21,7 @@ char	*ft_toupper(char *str)
 	while (*(str + (++pos)))
 	{
 		is_lower = *(str + pos) >= 97 && *(str + pos) <= 122;
-		if (ft_isalpha(*(str + pos)) && is_lower)
+		if (is_lower)
 			*(str + pos) -= 32;
 	}
 	return (str);

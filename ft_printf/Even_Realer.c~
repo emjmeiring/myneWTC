@@ -15,119 +15,100 @@ int		arg_type(char stream)
 	return (0);
 }
 
-int		search(t_convertor *conv, const char *stream, char *str_arg)
+// Might want to pass the convetor here and simply bzero it out.
+void	init_convertor(t_convertor *conv)
 {
-	int				i;
-	int				ip;
-	static int		went_left;
-	int				flag_matched;
-	int				min_fw_matched;
-	int				period_matched;
-	int				max_fw_matched;
-	char			*formatted;
-	int				has_printed;
-	//char			*stream = (char *)malloc();
-	printf("==%s==", str_arg);
-	//strcpy(stream,str);
-	i = 0;
-	flag_matched = FALSE;
-	min_fw_matched = FALSE;
-	period_matched = FALSE;
-	max_fw_matched = FALSE;
-	went_left = FALSE;
-	i++;
-	has_printed = 0;
-	while (*(stream + i) != '\0' && !has_printed)
-	{
-		if (arg_type(*(stream + i)))
-		{
-			went_left = TRUE;
-			if (flag_matched)
-			{
-				//printf("\nno argtype\n");
-				if (min_fw_matched)
-				{
-					printf("all done");
-				}else
-				{
-					//write(1, (stream + i), 7);
-					i += get_width(&conv->precision, (stream + i), 0);
-					
-					min_fw_matched = TRUE;
-		    		//printf("%d%c%d",conv->precision.width,conv->precision.period,conv->precision.precision);
-		    		//write(1, (stream + i), 7);
-				}
-			}else
-			{
-				//printf("\n%d\n", i);
-				//printf("**%c**", *(stream + i));
-				//printf("\n%d\n", i);
-				while (get_flag(&conv->flags, *(stream + i)))
-				{
-					i++;
-				}
-				//printf("woow");
-				flag_matched = TRUE;
-			}
-			//printf("**%c**", conv.flags.left_justified);
-		}else
-		{
-			//printf("hey");
-			//write(1, formatted, strlen(formatted));
-			has_printed = 1;
-			i++;
-		}
-	}
-	return (i-1);
+	conv->flags.left_justified = '\0';
+	conv->flags.zero_padding = '\0';
+	conv->flags.sign = '\0';
+	conv->flags.blanks = '\0';
+	conv->flags.hashtag = '\0';
+	conv->precision.width = 0;
+	conv->precision.precision = 0;
+	conv->precision.period = '\0';
+	conv->format_spec = '\0';
 }
-
 int		ft_printf(char const *stream, ...)
 {
 //printf("**%c**",*(stream +30));
 	int				i;
-	int				ip;
+	int				flag_matched;
+	int				min_fw_matched;
+	int				has_printed;
+	int				count;
 	va_list			args;
 	t_convertor		conv;
-	char			*str_arg;
-
+	
+	init_convertor(&conv);
 	va_start(args, stream);
+	//Move the initializations below to the initializing function.
 	i = 0;
-	ip =0;
+	count = 1;
+	flag_matched = FALSE;
+	min_fw_matched = FALSE;
+	//int has_printed = 0;
+	/* Stream[i] != NULL */
 	while (*(stream + i) != '\0')
 	{
+		/* Stream[i] == '%' */
 		if (*(stream + i) == FORMAT_SPECIFIER)
 		{
+			has_printed = 0;
+			/* Stream[i + 1] == '%' */
 			if (*(stream + i + 1) == FORMAT_SPECIFIER)
 			{
 				write(1, (stream + i + 1), 1);
+				count++;
 				i += 2;
 			}
 			else
 			{
-			//printf("++%c++", *(stream+i));
-				while (arg_type(*(stream + ip +i)))
-					ip++;
-				conv.format_spec = *(stream + ip + i);
-				str_arg = master_chef(conv, args);
-				///printf("==%s==", str_arg);
-				if (ip > 1)
-				{
-					i += search(&conv, (stream + i), str_arg);
-					write(1, str_arg, strlen(str_arg));
-				}else 
-				{
-					i++;
-					write(1, str_arg, strlen(str_arg));
-				}
 				i++;
+				while (*(stream + i) != '\0' && !has_printed)
+				{
+					if (arg_type(*(stream + i)))
+					{
+						if (flag_matched)
+						{
+							if (min_fw_matched)
+							{
+								write(1, "-/cant find specifier type-/\n", 29);
+								return (-1);
+							}else
+							{
+								i += get_width(&conv.precision, (stream + i), 0);
+								min_fw_matched = TRUE;
+							    //printf("%d%c%d", conv.precision.width,conv.precision.period,conv.precision.precision);
+							}
+						}else
+						{
+						//printf("\n%d\n", i);
+						//printf("**%c**", *(stream + i));
+						//printf("\n%d\n", i);
+							while (get_flag(&conv.flags, *(stream + i)))
+							{
+								i++;
+							}
+							//printf("woow");
+							flag_matched = TRUE;
+						}
+						//printf("**%c**", conv.flags.left_justified);
+					}else
+					{
+						conv.format_spec = *(stream + i);
+						count += master_chef(conv, args);
+						has_printed = 1;
+						i++;
+					}
+				}
 			}
-		}
-		else
+		}else
 		{
 			write(1, (stream + i), 1);
+			count++;
 			//printf("\n%d", i);
 			i++;
 		}
 	}
-	return (8);
+	return (count);
 }
