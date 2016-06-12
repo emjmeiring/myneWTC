@@ -12,7 +12,7 @@
 
 #include "filler.h"
 
-static int	find_str(char const *big, char const *little)
+int	find_str(char *big, char *little)
 {
 	int	i;
 	int	j;
@@ -87,14 +87,14 @@ int		get_stream(int from, int to)
 	
 	line = NULL;
 	i = 0;
-	player = '\0';
+	board.me.player = '\0';
 	while (get_next_line(from, &line) == 1 && *line != '<')
 	{
 		//i++;
-		if (player == '\0' && find_str(line, "/filler"))
+		if (board.me.player == '\0' && find_str(line, "/filler"))
 		{
-			board.player = get_player(line);
-			write(to, &player, 1);
+			board.me.player = get_player(line);
+			write(to, &board.me.player, 1);
 			//write(0, "ass", 3);
 		}
 		//printf("This is the player: %s\n", line);
@@ -102,15 +102,17 @@ int		get_stream(int from, int to)
 		{
 		//write(0, "ass", 3);
 			board.data = get_board(from, &board, line);
-			write(0, "ass", 3);
-			//while (i < board.width)
-				//printf("%s\n ", (board.data[i++]));
+			//write(0, "ass", 3);
+			while (i < board.width)
+				printf("%s\n", (board.data[i++]));
 		}
+		i = 0;
 		if (ft_strncmp(line, "Piece", 2) == 0)
 		{
 			piece.data = get_board(from, &piece, line);
-			//while (i < piece.width)
-				//printf("%s\n", (piece.data[i++]));
+			playing(board, piece);
+			while (i < piece.width)
+				printf("%s\n", (piece.data[i++]));
 		}
 		//write(to, line, ft_strlen(line));
 		//write(to, "\n", 1);

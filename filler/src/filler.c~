@@ -14,7 +14,7 @@
 
 void	load_data(int from, int to)
 {
-	to = open("debug.log", O_WRONLY | O_CREAT | O_APPEND, 0666);
+	to = open("myne.txt", O_WRONLY | O_CREAT | O_APPEND, 0666);
 	from = open("test2.txt", O_RDONLY | O_CREAT | O_APPEND, 0666);
 	get_stream(from, to);
 	

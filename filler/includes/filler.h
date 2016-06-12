@@ -24,27 +24,36 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-# define P1		O
-# define P2		X
+
+
+typedef struct	s_intel
+{
+	int			half_w;
+	int			half_len;
+	int			dir_x;
+	int			dir_y;
+	int			en_quad;
+	int			my_quad;
+}				t_intel;
 
 typedef struct	s_player
 {
-	char		pl_sign;
-	int			pl_num;
+	char		player;
 	int			x;
-	int			y;	
+	int			y;
 }				t_player;
 
 typedef struct	s_object_table
 {
-	char		player;
+	t_player	me;
+	t_player	enemy;
 	char		**data;
 	int			width;
 	int			len;
-	int			x;
-	int			y;
 }				t_data;
 
+//int				find_str(char *big, char *little)
+void			playing(t_data board, t_data piece);
 int				get_next_line(const int fd, char **line);
 char 			get_player(char *line);
 int				get_stream(int from, int to);

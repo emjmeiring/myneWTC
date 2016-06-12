@@ -26,9 +26,9 @@ PATH_SRC= ./src/
 
 PATH_HD= -I includes/
 
-SRC = $(PATH_SRC)read_table.c $(PATH_SRC)filler.c $(PATH_SRC)playing.c
+SRC = $(PATH_SRC)read_table.c $(PATH_SRC)filler.c
 
-OBJ = read_table.o filler.o playing.o
+OBJ = read_table.o filler.o
 
 $(NAME):
 	@echo "Compiling binaries..."

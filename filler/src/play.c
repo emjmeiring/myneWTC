@@ -3,61 +3,67 @@
 /*                                                        :::      ::::::::   */
 /*   play.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jomeirin- <marvin@42.fr>                   +#+  +:+       +#+        */
+/*   By: simzam <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/06/09 12:21:31 by jomeirin-         #+#    #+#             */
-/*   Updated: 2016/06/09 18:18:46 by jomeirin-        ###   ########.fr       */
+/*   Created: 2016/06/11 13:20:07 by simzam            #+#    #+#             */
+/*   Updated: 2016/06/11 17:02:55 by simzam           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "filler.h"
 
-int		look(int *piece_x, int *piece_y, int i, t_data *board, t_data *piece)
+void	is_playable(char *playable, int pi_len)
 {
-	return (0);
-}
-
-int		check(t_data *board, t_data *piece, int y, int x)
-{
-	int	piece_x;
-	int	piece_y
-	int i;
-
-	piece_x = 0;
-	piece_y = 0;
-	i = 0;
-	look(&piece_x, &piece_y, i, &board, &piece)
-}
-
-void	play(t_data *board, t_data *piece)
-{
-	int i;
-	int j;
+	int		i;
 
 	i = 0;
-	j = 0;
-	while (i < board->width)
-	{
-		while (j < board->len)
-		{
-			if(board->data[i][j] == board->player)
-			{
-				board->x = i;
-				board->y = j;
-				if (check(board, piece)
-					return ;
-			}
-			if(board->data[i][j] == board->player + 32)
-			{
-				board->x = i;
-				board->y = j;
-				if (check(board, piece)
-					return ;
-			}
-			j++;
-		}
-		j = 0;
+	while (playable[i] == '.' && i <= pi_len)
 		i++;
+	return ((i <= pi_len));
+}
+
+/*
+ * Until we find a playable position, who ever calls this function must do it indefinitely
+ */
+
+int		run_through_piece(t_data *data, t_player *player)
+{
+	int		x;
+	int		y;
+	int		pi_len;
+
+	i = 0;
+	j = -1;
+	pi_len = ft_strlen(*data->bpiece.bf_content);
+	if (player->x + pi_len > data->bfield.width)
+		return (-1);
+	else
+	{
+		while (1)
+		{
+			if ((k = is_playable((char *)data->bfield.bf_content[player->x],
+							pi_len)) && i < data->bpiece.width)
+				i++;
+			else
+				return (k > 0);
+		}
+		return (1);
 	}
 }
 
+/*int		look_ahead(t_bfield field, t_piece piece)
+{
+	int x;
+	int y;
+
+	x = -1;
+	while (++x < bfield->width)
+	{
+		y = -1;
+		while (++y < bfield->len)
+		{
+			if (bfield->bf_content[x][y] == '.' || bfield->bf_content[x][y])
+				place_piece(piece, bfield);
+		}
+	}
+}*/

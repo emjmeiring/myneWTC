@@ -30,3 +30,9 @@ int		main(void)
 	close(to);
 	return 0;
 }
+/*
+# define P1			O
+# define P2			X
+# define X_AXIS		1
+# define Y_AXIS		2
+# define XANDY_AXIS	3*/
